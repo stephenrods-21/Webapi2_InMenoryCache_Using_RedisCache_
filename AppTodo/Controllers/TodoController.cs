@@ -13,19 +13,15 @@ namespace AppTodo.Controllers
     [RoutePrefix("api/todo")]
     public class TodoController : ApiController
     {
-        IDatabase redis;
-        IServer server;
-        RedisConnection obj = new RedisConnection();
+        private readonly IDatabase redis;
+        private readonly IServer server;
+        private readonly RedisConnection obj = new RedisConnection();
         public TodoController()
         {
             redis = obj.Connection.GetDatabase();
             server = obj.Connection.GetServer("Redisv1.redis.cache.windows.net:6380");
         }
 
-        /// <summary>
-        /// This api fetches all todos
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [Route("list")]
         public async Task<IHttpActionResult> GetAllAsync()
